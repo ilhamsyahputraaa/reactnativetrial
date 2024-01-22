@@ -9,7 +9,7 @@ import {
 } from "react-native-heroicons/outline";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView } from "react-native";
-import TrendingMovies from "../components/trendingMovies";
+import TrendingMovies from "../components/TrendingMovies.js";
 
 const ios = Platform.OS == "ios";
 export default function HomeScreen() {
@@ -18,9 +18,9 @@ export default function HomeScreen() {
   return (
     <View className="flex-1 bg-neutral-900">
       {/* Search Bar and Logo */}
-      <SafeAreaView className={ios ? "-mb-2" : "mb-3"}>
-        <StatusBar style="light" />
-        <View className="flex-row justify-between items-center mx-4">
+        <StatusBar style="light" className={'bg-black'}/>
+      <SafeAreaView className={`bg-whites ${ios ? "-mb-2" : "mb-3"}`}>
+        <View className="flex-row justify-between items-center mx-4 ">
           <Bars3Icon size="30" strokeWidth={2} color="white" />
           <Text className="text-white text-3xl font-bold">
             <Text className="text-yellow-500">M</Text>ovies
