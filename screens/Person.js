@@ -82,9 +82,15 @@ const Person = () => {
       <View className="space-y-3" style={{ marginTop: (height * 0.03) }}>
         {/* Title */}
 
+        <View className={"space-y-1"}>
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
           Keanu Reeves
         </Text>
+        <Text className="text-neutral-500 text-center text-lg tracking-wider">
+          London, United Kingdom
+        </Text>
+
+        </View>
 
 
         {/* Genres */}
