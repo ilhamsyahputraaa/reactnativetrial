@@ -44,13 +44,13 @@ export default function HomeScreen() {
         <MovieList title="Upcoming Movies" data={upcoming} movieName="movieNamesdsdffdf"/>
 
         {/* TV Show */}
-        <MovieList title="TV Shows" data={upcoming} movieName="movieNamesdsdffdf"/>
+        <MovieList title="TV Shows" data={upcoming} movieName="movieNamesdsdffdf" seeAll={true}/>
 
         {/* topRated Movies */}
         <MovieListWide title="Top Rated Movies" data={topRated} />
 
         {/* Upcoming Movies */}
-        <ActorList title="Artis and Director" data={artDir} actorName={"Keanu Reeves"} dept={"Actor"}/>
+        <ActorList title="Artis and Director" data={artDir} actorName={"Keanu Reeves"} dept={"Actor"} seeAll={true}/>
       </ScrollView>
     </View>
   );

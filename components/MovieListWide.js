@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
@@ -58,7 +59,7 @@ export default function MovieListWide({ data }) {
 const MovieCard = ({ item, handleClick }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-      <View className="relative ">
+      <View className="relative overflow-hidden">
         <View
           style={{
             backgroundColor: "#4A5568",
@@ -69,7 +70,7 @@ const MovieCard = ({ item, handleClick }) => {
             alignItems: "center",
             gap: 2,
           }}
-          className="absolute top-2 right-2 z-20 items-center justify-center"
+          className="absolute top-2 right-2 z-20 items-center justify-center "
         >
           <Image
             source={require("../assets/images/fullStar.png")}
@@ -90,10 +91,28 @@ const MovieCard = ({ item, handleClick }) => {
             alignItems: "start",
             gap: 10,
           }}
-          className="absolute bottom-2 left-2 z-20 items-start justify-start bg-black/20 w-full"
-        >
+          className="absolute bottom-0 z-20 items-start justify-start bg-black/20 w-full"
+        ><LinearGradient
+          colors={["transparent", "rgba(10,5,5,0.8)", "rgba(23,23,23,1)"]}
+          style={{ width, height: height * 0.07 }}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
+          className="absolute bottom-0"
+        />
+        <View
+          style={{
+            borderRadius: 999,
+            padding: 8,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "start",
+            gap: 10,
+          }}>
+
           <Text style={{ color: "white" }}>Dunkirk</Text>
           <Text style={{ color: "gray" }}>2017</Text>
+        </View>
+        
         </View>
         <Image
           source={require("../assets/images/Dunkirk-landscape.png")}

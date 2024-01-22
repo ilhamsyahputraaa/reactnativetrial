@@ -13,11 +13,11 @@ import Carousel from "react-native-snap-carousel";
 
 const { width, height } = Dimensions.get("window");
 
-export default function ActorList({ data, title, actorName, dept }) {
+export default function ActorList({ data, title, actorName, dept, seeAll }) {
   const navigation = useNavigation();
 
   const handleClick = (item) => {
-    navigation.navigate("Movie", item);
+    navigation.push("Person", item);
   };
 
   return (
@@ -32,11 +32,12 @@ export default function ActorList({ data, title, actorName, dept }) {
         }}
       >
         <Text style={{ color: "white", fontSize: 20 }}>{title}</Text>
+        {seeAll ?
         <TouchableOpacity
           style={{ backgroundColor: "#4A5568", borderRadius: 999, padding: 8 }}
         >
           <Text style={{ color: "#ECC94B" }}>See All</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> : null}
       </View>
       <ScrollView
         horizontal
@@ -59,13 +60,13 @@ export default function ActorList({ data, title, actorName, dept }) {
                 className="rounded-full object-cover"
               />
               <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
-                {actorName.length > 14
-                  ? actorName.slice(0, 14) + "..."
+                {actorName.length > 10
+                  ? actorName.slice(0, 10) + "..."
                   : actorName}
               </Text>
               <Text className="text-neutral-500 ml-1 text-center  line-clamp-1 w-fit">
-                {dept.length > 14
-                  ? dept.slice(0, 14) + "..."
+                {dept.length > 10
+                  ? dept.slice(0, 10) + "..."
                   : dept}
               </Text>
             </View>

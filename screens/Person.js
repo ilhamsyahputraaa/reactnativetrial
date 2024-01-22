@@ -18,7 +18,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import ActorList from "../components/ActorList";
 import MovieList from "../components/MovieList";
 
-const DetailMovie = () => {
+const Person = () => {
   const { params: item } = useRoute();
 
   const { width, height } = Dimensions.get("window");
@@ -29,8 +29,8 @@ const DetailMovie = () => {
 
   const [isFavourite, toggleFavourite] = useState(false);
 
-  const [artDir, setArtDir] = useState([1, 2, 3,4]);
-  const [related, relatedMovies] = useState([1, 2, 3,4]);
+  const [artDir, setArtDir] = useState([1, 2, 3, 4]);
+  const [related, relatedMovies] = useState([1, 2, 3, 4]);
 
   useEffect(() => {}, [item]);
 
@@ -41,7 +41,6 @@ const DetailMovie = () => {
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"
     >
-      <StatusBar style="light" className={""} />
 
       {/* Backbutton and movie poster */}
       <View className="w-full">
@@ -64,84 +63,45 @@ const DetailMovie = () => {
             />
           </TouchableOpacity>
         </SafeAreaView>
-        <View>
+        <View className="flex-row items-center justify-center">
           <Image
-            source={require("../assets/images/moviePoster2.png")}
+            source={require("../assets/images/castImage1.png")}
             // source={{ uri: image500(item.poster_path) }}
             style={{
-              width: width,
-              height: height * 0.55,
+              width: 200,
+              height: 200,
+              marginTop:height*0.15
             }}
+            className="rounded-full shadow mt"
           />
-          <LinearGradient
-            colors={["transparent", "rgba(23,23,23,0.8)", "rgba(23,23,23,1)"]}
-            style={{ width, height: height * 0.3 }}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
-            className="absolute bottom-0"
-          />
+
         </View>
       </View>
 
       {/* Movie Details */}
-      <View className="space-y-3" style={{ marginTop: -(height * 0.08) }}>
+      <View className="space-y-3" style={{ marginTop: (height * 0.03) }}>
         {/* Title */}
 
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          Ant-Man and the Wasp: Quantumania
+          Keanu Reeves
         </Text>
 
-        {/* Status,Release, runtime */}
-        <View className="flex-row gap-4 w-full items-center justify-center">
-          <View className="text-white  rounded-full ">
-            <Text className="text-white  rounded-full ">
-              Released In 2020
-            </Text>
-          </View>
-          
-          <View className="text-white  rounded-full ">
-            <Text className="text-white  rounded-full ">
-              179 Minutes
-            </Text>
-          </View>
-          <View
-            style={{
-              borderRadius: 999,
-              padding: 8,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 2,
-            }}
-            className=" items-center justify-center bg-neutral-800"
-          >
-            <Image
-              source={require("../assets/images/fullStar.png")}
-              // source={{ uri: image500(item.poster_path) }}
-              style={{
-                width: 15,
-                height: 15,
-              }}
-            />
-            <Text style={{ color: "#ECC94B" }}>3</Text>
-          </View>
-        </View>
 
         {/* Genres */}
         <View className="flex-row gap-2 w-full items-center justify-center">
           <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
             <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Action
+              Actor
             </Text>
           </View>
           <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
             <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Thrill
+              Director
             </Text>
           </View>
           <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
             <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Commedy
+              Producer
             </Text>
           </View>
         </View>
@@ -156,13 +116,7 @@ const DetailMovie = () => {
           push them beyond the limits of what they thought possible.
         </Text>
 
-        <ActorList
-          data={artDir}
-          actorName={"Keanu Reeves"}
-          dept={"Scott Lang"}
-          title={"Cast and Director"}
-          seeAll={false}
-        />
+
 
         <MovieList
           title="Related Movies and Series"
@@ -175,4 +129,4 @@ const DetailMovie = () => {
   );
 };
 
-export default DetailMovie;
+export default Person;
