@@ -129,7 +129,7 @@ export default function HomeScreen() {
           <ActorList
             title="Artists and Director"
             data={artDir}
-            seeAll={true}
+            seeAll={false}
           />
         </ScrollView>
       )}

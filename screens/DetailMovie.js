@@ -18,7 +18,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import ActorList from "../components/ActorList";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading.js";
-import { fetchMovieCredits, fetchMovieDetail, image500 } from "../api/moviedb";
+import { fetchMovieCredits, fetchMovieDetail, fetchMovieSimilar, image500 } from "../api/moviedb";
 
 const DetailMovie = () => {
   const { params: item } = useRoute();
@@ -56,7 +56,6 @@ const DetailMovie = () => {
       if (data) {
         setDetail(data); // Set directly without wrapping in an object
       }
-      console.log(data);
     } finally {
       setLoading(false);
     }
@@ -68,8 +67,9 @@ const DetailMovie = () => {
       setLoading(false);
     };
     const getSimilarMovies = async (id) => {
-      const data = await getSimilarMovies(id);
-      if (data && data.results) setRelatedMovies(data.results);
+      const data = await fetchMovieSimilar(id);
+      if (data) setRelatedMovies(data.results);
+      console.log(data);
       setLoading(false);
     };
 
@@ -137,7 +137,7 @@ const DetailMovie = () => {
           </View>
 
           <View className="text-white  rounded-full ">
-            <Text className="text-white  rounded-full ">{detail.runtime} Minutes</Text>
+            <Text className="text-white  rounded-full ">{detail?.runtime} Minutes</Text>
           </View>
           <View
             style={{
@@ -169,7 +169,7 @@ const DetailMovie = () => {
 
           <View className="text-white p-1 bg-neutral-800 rounded-full px-2" key={index}>
             <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              {item.name}
+              {item?.name}
             </Text>
           </View>
             )
@@ -179,19 +179,17 @@ const DetailMovie = () => {
         {/* Description */}
 
         <Text className="text-neutral-400 mx-4 tracking-wide mb-10">
-          {detail.overview}
+          {detail?.overview}
         </Text>
 
         <ActorList
           data={artDir}
-          actorName={"Keanu Reeves"}
-          dept={"Scott Lang"}
           title={"Cast and Director"}
           seeAll={false}
         />
 
         <MovieList
-          title="Related Movies and Series"
+          title="Similar Movies"
           data={related}
           seeAll={false}
         />
