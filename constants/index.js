@@ -1,5 +1,4 @@
-export const apiKey =
-  "place your api key here from : https://www.themoviedb.org";
+export const apiKey = "98fc2f57c98ad6f5c578e2e392ba6746";
 
 // this data was used for the development of the app
 export const moviesData = [
@@ -27,7 +26,6 @@ export const personData = {
   biography:
     "Keanu Charles Reeves is a Canadian actor. Reeves is known for his roles in Bill & Ted's Excellent Adventure, Speed, Point Break, and The Matrix franchise as Neo. He has collaborated with major directors such as Stephen Frears (in the 1988 period drama Dangerous Liaisons); Gus Van Sant (in the 1991 independent film My Own Private Idaho); and Bernardo Bertolucci (in the 1993 film Little Buddha). Referring to his 1991 film releases, The New York Times' critic, Janet Maslin, praised Reeves' versatility, saying that he \"displays considerable discipline and range. He moves easily between the buttoned-down demeanor that suits a police procedural story and the loose-jointed manner of his comic roles.\" A repeated theme in roles he has portrayed is that of saving the world, including the characters of Ted Logan, Buddha, Neo, Johnny Mnemonic, John Constantine and Klaatu.",
 };
-
 
 import { COLORS, FONT, SIZES, SHADOWS } from "./theme";
 

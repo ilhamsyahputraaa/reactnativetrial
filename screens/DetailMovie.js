@@ -17,11 +17,16 @@ import { HeartIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
 import ActorList from "../components/ActorList";
 import MovieList from "../components/MovieList";
+import Loading from "../components/Loading.js";
+import { fetchMovieCredits, fetchMovieDetail, image500 } from "../api/moviedb";
 
 const DetailMovie = () => {
   const { params: item } = useRoute();
 
   const { width, height } = Dimensions.get("window");
+
+  const [loading, setLoading] = useState(true);
+
 
   const ios = Platform.OS == "ios";
 
@@ -30,18 +35,50 @@ const DetailMovie = () => {
   const [isFavourite, toggleFavourite] = useState(false);
 
   const [artDir, setArtDir] = useState([1, 2, 3,4]);
-  const [related, relatedMovies] = useState([1, 2, 3,4]);
+  const [related, setRelatedMovies] = useState([1, 2, 3,4]);
+  const [detail, setDetail] = useState(null);
 
-  useEffect(() => {}, [item]);
 
   const navigation = useNavigation();
+
+
+
+  useEffect(() => {
+    setLoading(true);
+    getDetailMovie(item.id);
+    getCreditsMovie(item.id);
+    getSimilarMovies(item.id);
+  }, [item]);
+
+  const getDetailMovie = async (id) => {
+    try {
+      const data = await fetchMovieDetail(id);
+      if (data) {
+        setDetail(data); // Set directly without wrapping in an object
+      }
+      console.log(data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+    const getCreditsMovie = async (id) => {
+      const data = await fetchMovieCredits(id);
+      if (data && data.cast) setArtDir(data.cast);
+      setLoading(false);
+    };
+    const getSimilarMovies = async (id) => {
+      const data = await getSimilarMovies(id);
+      if (data && data.results) setRelatedMovies(data.results);
+      setLoading(false);
+    };
 
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"
     >
-      <StatusBar style="light" className={""} />
+      <StatusBar style="light" />
 
       {/* Backbutton and movie poster */}
       <View className="w-full">
@@ -64,13 +101,14 @@ const DetailMovie = () => {
             />
           </TouchableOpacity>
         </SafeAreaView>
+        {loading? <Loading/> :
         <View>
           <Image
-            source={require("../assets/images/moviePoster2.png")}
-            // source={{ uri: image500(item.poster_path) }}
+            // source={require("../assets/images/moviePoster2.png")}
+            source={{ uri: image500(detail?.poster_path) }}
             style={{
               width: width,
-              height: height * 0.55,
+              height: 600,
             }}
           />
           <LinearGradient
@@ -80,29 +118,26 @@ const DetailMovie = () => {
             end={{ x: 0.5, y: 1 }}
             className="absolute bottom-0"
           />
-        </View>
+        </View> }
       </View>
 
-      {/* Movie Details */}
+      {loading? null :
+
       <View className="space-y-3" style={{ marginTop: -(height * 0.08) }}>
         {/* Title */}
 
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          Ant-Man and the Wasp: Quantumania
+          {detail?.original_title}
         </Text>
 
         {/* Status,Release, runtime */}
         <View className="flex-row gap-4 w-full items-center justify-center">
           <View className="text-white  rounded-full ">
-            <Text className="text-white  rounded-full ">
-              Released In 2020
-            </Text>
+            <Text className="text-white  rounded-full ">{detail?.release_date}</Text>
           </View>
-          
+
           <View className="text-white  rounded-full ">
-            <Text className="text-white  rounded-full ">
-              179 Minutes
-            </Text>
+            <Text className="text-white  rounded-full ">{detail.runtime} Minutes</Text>
           </View>
           <View
             style={{
@@ -123,37 +158,28 @@ const DetailMovie = () => {
                 height: 15,
               }}
             />
-            <Text style={{ color: "#ECC94B" }}>3</Text>
+            <Text style={{ color: "#ECC94B" }}>{detail?.vote_average?.toFixed(1)}</Text>
           </View>
         </View>
 
         {/* Genres */}
         <View className="flex-row gap-2 w-full items-center justify-center">
-          <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
+          {detail?.genres?.map((item, index) => {
+            return (
+
+          <View className="text-white p-1 bg-neutral-800 rounded-full px-2" key={index}>
             <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Action
+              {item.name}
             </Text>
           </View>
-          <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
-            <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Thrill
-            </Text>
-          </View>
-          <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
-            <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Commedy
-            </Text>
-          </View>
+            )
+          })}
         </View>
 
         {/* Description */}
 
         <Text className="text-neutral-400 mx-4 tracking-wide mb-10">
-          Super-Hero partners Scott Lang and Hope van Dyne, along with with
-          Hope's parents Janet van Dyne and Hank Pym, and Scott's daughter
-          Cassie Lang, find themselves exploring the Quantum Realm, interacting
-          with strange new creatures and embarking on an adventure that will
-          push them beyond the limits of what they thought possible.
+          {detail.overview}
         </Text>
 
         <ActorList
@@ -167,10 +193,10 @@ const DetailMovie = () => {
         <MovieList
           title="Related Movies and Series"
           data={related}
-          movieName="movieNamesdsdffdf"
           seeAll={false}
         />
       </View>
+     }
     </ScrollView>
   );
 };

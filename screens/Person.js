@@ -17,11 +17,13 @@ import { HeartIcon } from "react-native-heroicons/solid";
 import { LinearGradient } from "expo-linear-gradient";
 import ActorList from "../components/ActorList";
 import MovieList from "../components/MovieList";
+import Loading from "../components/Loading.js";
 
 const Person = () => {
   const { params: item } = useRoute();
 
   const { width, height } = Dimensions.get("window");
+  const [loading, setLoading] = useState(false);
 
   const ios = Platform.OS == "ios";
 
@@ -63,6 +65,7 @@ const Person = () => {
             />
           </TouchableOpacity>
         </SafeAreaView>
+        {loading? null :
         <View className="flex-row items-center justify-center">
           <Image
             source={require("../assets/images/castImage1.png")}
@@ -75,10 +78,11 @@ const Person = () => {
             className="rounded-full shadow mt"
           />
 
-        </View>
+        </View>}
       </View>
 
-      {/* Movie Details */}
+      {/* Person Details */}
+      {loading? <Loading /> :
       <View className="space-y-3" style={{ marginTop: (height * 0.03) }}>
         {/* Title */}
 
@@ -130,7 +134,7 @@ const Person = () => {
           movieName="movieNamesdsdffdf"
           seeAll={false}
         />
-      </View>
+      </View>}
     </ScrollView>
   );
 };

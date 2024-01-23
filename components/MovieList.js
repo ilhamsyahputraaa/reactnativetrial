@@ -10,15 +10,17 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
+import { image342, image500 } from "../api/moviedb";
 
 const { width, height } = Dimensions.get("window");
 
-export default function MovieList({ data, title, movieName, seeAll }) {
+export default function MovieList({ data, title, seeAll, movieName }) {
   const navigation = useNavigation();
 
   const handleClick = (item) => {
     navigation.push("Movie", item);
   };
+
 
   return (
     <View style={{ marginBottom: 20, paddingVertical: 4 }}>
@@ -44,7 +46,6 @@ export default function MovieList({ data, title, movieName, seeAll }) {
             <Text style={{ color: "#ECC94B" }}>See All</Text>
           </TouchableOpacity>
         ) : null}
-
       </View>
       <ScrollView
         horizontal
@@ -58,19 +59,27 @@ export default function MovieList({ data, title, movieName, seeAll }) {
           >
             <View className="space-y-1 mr-4">
               <Image
-                source={require("../assets/images/moviePoster2.png")}
-                // source={{ uri: image500(item.poster_path) }}
+                // source={require("../assets/images/moviePoster2.png")}
+                source={{ uri: image342(item.poster_path) }}
                 style={{
                   width: width * 0.33,
                   height: height * 0.22,
                 }}
                 className="rounded-xl"
               />
-              <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
-                {movieName.length > 14
-                  ? movieName.slice(0, 14) + "..."
-                  : movieName}
-              </Text>
+              {item?.title ? (
+                <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
+                  {item?.title?.length > 14
+                    ? item?.title?.slice(0, 14) + "..."
+                    : item?.title}
+                </Text>
+              ) : (
+                <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
+                  {item?.name?.length > 14
+                    ? item?.name?.slice(0, 14) + "..."
+                    : item?.name}
+                </Text>
+              )}
             </View>
           </TouchableWithoutFeedback>
         ))}

@@ -9,6 +9,7 @@ import {
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { image342, image500 } from "../api/moviedb";
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,11 +32,11 @@ export default function MovieListWide({ data }) {
         }}
       >
         <Text style={{ color: "white", fontSize: 20 }}>Top Rated</Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{ backgroundColor: "#4A5568", borderRadius: 999, padding: 8 }}
         >
           <Text style={{ color: "#ECC94B" }}>See All</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <Carousel
         data={data}
@@ -74,13 +75,15 @@ const MovieCard = ({ item, handleClick }) => {
         >
           <Image
             source={require("../assets/images/fullStar.png")}
-            // source={{ uri: image500(item.poster_path) }}
+            // source={{ uri: image500(item.backdrop_path) }}
             style={{
               width: 15,
               height: 15,
             }}
           />
-          <Text style={{ color: "#ECC94B" }}>3</Text>
+          <Text style={{ color: "#ECC94B" }}>
+            {item?.vote_average?.toFixed(1)}
+          </Text>
         </View>
         <View
           style={{
@@ -92,31 +95,33 @@ const MovieCard = ({ item, handleClick }) => {
             gap: 10,
           }}
           className="absolute bottom-0 z-20 items-start justify-start bg-black/20 w-full"
-        ><LinearGradient
-          colors={["transparent", "rgba(10,5,5,0.8)", "rgba(23,23,23,1)"]}
-          style={{ width, height: height * 0.07 }}
-          start={{ x: 0.5, y: 0 }}
-          end={{ x: 0.5, y: 1 }}
-          className="absolute bottom-0"
-        />
-        <View
-          style={{
-            borderRadius: 999,
-            padding: 8,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "start",
-            gap: 10,
-          }}>
-
-          <Text style={{ color: "white" }}>Dunkirk</Text>
-          <Text style={{ color: "gray" }}>2017</Text>
-        </View>
-        
+        >
+          <LinearGradient
+            colors={["transparent", "rgba(10,5,5,0.8)", "rgba(23,23,23,1)"]}
+            style={{ width, height: height * 0.07 }}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
+            className="absolute bottom-0"
+          />
+          <View
+            style={{
+              borderRadius: 999,
+              padding: 8,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "start",
+              gap: 10,
+            }}
+          >
+            <Text style={{ color: "white" }}>{item.title}</Text>
+            <Text style={{ color: "gray" }}>
+              {item?.release_date?.slice(0, 4)}
+            </Text>
+          </View>
         </View>
         <Image
-          source={require("../assets/images/Dunkirk-landscape.png")}
-          // source={{ uri: image500(item.poster_path) }}
+          // source={require("../assets/images/Dunkirk-landscape.png")}
+          source={{ uri: image342(item.poster_path) }}
           style={{
             width: width * 0.8,
             height: height * 0.2,

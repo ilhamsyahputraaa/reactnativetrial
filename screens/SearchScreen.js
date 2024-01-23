@@ -12,11 +12,13 @@ import {
 } from "react-native";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
+import Loading from "../components/Loading.js";
 
 export default function SearchScreen() {
   const navigation = useNavigation();
 
   const [results, setResult] = useState([1, 2, 3, 4, 5]);
+  const [loading, setLoading] = useState(false);
 
   var { width, height } = Dimensions.get("window");
 
@@ -45,7 +47,8 @@ export default function SearchScreen() {
           <XMarkIcon size={20} color={"white"} />
         </TouchableOpacity>
       </View>
-      {results.length > 0 ? (
+      {loading? (<Loading />) : 
+      results.length > 0 ? (
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 15 }}
