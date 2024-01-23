@@ -8,6 +8,7 @@ import React from "react";
 import HomeScreen from "./screens/HomeScreen";
 import DetailMovie from "./screens/DetailMovie";
 import Person from "./screens/Person";
+import SearchScreen from "./screens/SearchScreen";
 
 
 export default function AppNavigation() {
@@ -17,6 +18,7 @@ export default function AppNavigation() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Movie" component={DetailMovie} />
         <Stack.Screen name="Person" component={Person} />
+        <Stack.Screen name="Search" component={SearchScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

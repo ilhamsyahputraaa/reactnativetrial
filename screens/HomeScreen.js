@@ -9,6 +9,7 @@ import TrendingMovies from "../components/TrendingMovies.js";
 import MovieList from "../components/MovieList.js";
 import ActorList from "../components/ActorList.js";
 import MovieListWide from "../components/MovieListWide.js";
+import { useNavigation } from "@react-navigation/native";
 
 const ios = Platform.OS == "ios";
 export default function HomeScreen() {
@@ -16,6 +17,12 @@ export default function HomeScreen() {
   const [upcoming, setUpcoming] = useState([1, 2, 3]);
   const [topRated, setTopRated] = useState([1, 2, 3]);
   const [artDir, setArtDir] = useState([1, 2, 3,4]);
+
+  const navigation = useNavigation();
+
+  const handleClick = () => {
+    navigation.navigate("Search");
+  };
 
   return (
     <View className="flex-1 bg-neutral-900">
@@ -27,7 +34,7 @@ export default function HomeScreen() {
           <Text className="text-white text-3xl font-bold">
             <Text className="text-yellow-500">M</Text>ovies
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => handleClick()}>
             <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
           </TouchableOpacity>
         </View>
@@ -41,16 +48,31 @@ export default function HomeScreen() {
         <TrendingMovies data={trending} />
 
         {/* Upcoming Movies */}
-        <MovieList title="Upcoming Movies" data={upcoming} movieName="movieNamesdsdffdf"/>
+        <MovieList
+          title="Upcoming Movies"
+          data={upcoming}
+          movieName="movieNamesdsdffdf"
+        />
 
         {/* TV Show */}
-        <MovieList title="TV Shows" data={upcoming} movieName="movieNamesdsdffdf" seeAll={true}/>
+        <MovieList
+          title="TV Shows"
+          data={upcoming}
+          movieName="movieNamesdsdffdf"
+          seeAll={true}
+        />
 
         {/* topRated Movies */}
         <MovieListWide title="Top Rated Movies" data={topRated} />
 
         {/* Upcoming Movies */}
-        <ActorList title="Artis and Director" data={artDir} actorName={"Keanu Reeves"} dept={"Actor"} seeAll={true}/>
+        <ActorList
+          title="Artis and Director"
+          data={artDir}
+          actorName={"Keanu Reeves"}
+          dept={"Actor"}
+          seeAll={true}
+        />
       </ScrollView>
     </View>
   );
