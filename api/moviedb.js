@@ -46,6 +46,10 @@ export const fetchTrendingTV = ()=>{
 export const fetchTopRatedMovies = ()=>{
     return apiCall(topRatedMovieEndpoint);
 }
+export const fetchTrendingPerson = ()=>{
+    return apiCall(trendingPersonEndpoint);
+}
+
 export const fetchMovieDetail = (id)=>{
     return apiCall(MovieDetailEndPoint(id));
 }

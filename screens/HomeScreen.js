@@ -25,7 +25,7 @@ export default function HomeScreen() {
   const [trendingTV, setTrendingTV] = useState([1, 2, 3]);
   const [upcoming, setUpcoming] = useState([1, 2, 3]);
   const [topRated, setTopRated] = useState([1, 2, 3]);
-  const [artDir, setArtDir] = useState([1, 2, 3, 4]);
+  const [person, setPerson] = useState([1, 2, 3, 4]);
   const [loading, setLoading] = useState(true);
 
   const navigation = useNavigation();
@@ -76,7 +76,7 @@ export default function HomeScreen() {
   }
   const getTrendingPerson = async () =>{
     const data = await fetchTrendingPerson();
-    if(data&& data.results) setArtDir(data.results);
+    if(data&& data.results) setPerson(data.results);
     setLoading(false)
   }
 
@@ -128,7 +128,7 @@ export default function HomeScreen() {
           {/* Upcoming Movies */}
           <ActorList
             title="Artists and Director"
-            data={artDir}
+            data={person}
             seeAll={false}
           />
         </ScrollView>
