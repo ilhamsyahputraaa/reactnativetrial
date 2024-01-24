@@ -74,7 +74,6 @@ const DetailTV = () => {
   const getSimilarTVs = async (id) => {
     const data = await fetchTVSimilar(id);
     if (data) setRelatedTVs(data.results);
-    console.log(data);
     setLoading(false);
   };
 
@@ -134,7 +133,7 @@ const DetailTV = () => {
           {/* Title */}
 
           <Text className="text-white text-center text-3xl font-bold tracking-wider">
-            {detail?.original_title}
+            {detail?.name}
           </Text>
 
           {/* Status,Release, runtime */}

@@ -71,7 +71,6 @@ export default function HomeScreen() {
   }
   const getTrendingTV = async () =>{
     const data = await fetchTrendingTV();
-    console.log(data);
     if(data&& data.results) setTrendingTV(data.results);
     setLoading(false)
   }

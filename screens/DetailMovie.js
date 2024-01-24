@@ -69,7 +69,6 @@ const DetailMovie = () => {
     const getSimilarMovies = async (id) => {
       const data = await fetchMovieSimilar(id);
       if (data) setRelatedMovies(data.results);
-      console.log(data);
       setLoading(false);
     };
 
@@ -127,7 +126,7 @@ const DetailMovie = () => {
         {/* Title */}
 
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          {detail?.original_title}
+          {detail?.title}
         </Text>
 
         {/* Status,Release, runtime */}
