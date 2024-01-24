@@ -71,6 +71,7 @@ export default function HomeScreen() {
   }
   const getTrendingTV = async () =>{
     const data = await fetchTrendingTV();
+    console.log(data);
     if(data&& data.results) setTrendingTV(data.results);
     setLoading(false)
   }
@@ -113,6 +114,7 @@ export default function HomeScreen() {
           <MovieList
             title="Upcoming Movies"
             data={upcoming}
+            isMovie={true}
           />
 
           {/* TV Show */}
@@ -120,6 +122,7 @@ export default function HomeScreen() {
             title="TV Shows"
             data={trendingTV}
             seeAll={false}
+            isMovie={false}
           />
 
           {/* topRated Movies */}

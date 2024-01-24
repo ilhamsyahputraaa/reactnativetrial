@@ -14,11 +14,17 @@ import { image342, image500 } from "../api/moviedb";
 
 const { width, height } = Dimensions.get("window");
 
-export default function MovieList({ data, title, seeAll, movieName }) {
+export default function MovieList({ data, title, seeAll, isMovie }) {
   const navigation = useNavigation();
 
   const handleClick = (item) => {
-    navigation.push("Movie", item);
+    if (isMovie) {
+      // Navigasi ke halaman Movie jika isMovie adalah true
+      navigation.push("Movie", item );
+    } else {
+      // Navigasi ke halaman TV jika isMovie adalah false
+      navigation.push("TV", item);
+    }
   };
 
 
@@ -52,7 +58,7 @@ export default function MovieList({ data, title, seeAll, movieName }) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <TouchableWithoutFeedback
             key={index}
             onPress={() => handleClick(item)}

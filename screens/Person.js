@@ -18,6 +18,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import ActorList from "../components/ActorList";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading.js";
+import { fetchPersonDetail, fetchRelatedMovies, fetchRelatedTV, image500 } from "../api/moviedb";
 
 const Person = () => {
   const { params: item } = useRoute();
@@ -31,12 +32,44 @@ const Person = () => {
 
   const [isFavourite, toggleFavourite] = useState(false);
 
-  const [artDir, setArtDir] = useState([1, 2, 3, 4]);
-  const [related, relatedMovies] = useState([1, 2, 3, 4]);
+  const [detail, setDetail] = useState();
+  const [relatedMovies, setRelatedMovies] = useState([1, 2, 3, 4]);
+  const [relatedTV, setRelatedTV] = useState([1, 2, 3, 4]);
 
   useEffect(() => {}, [item]);
 
   const navigation = useNavigation();
+
+
+  useEffect(() => {
+    setLoading(true);
+    getPersonDetail(item.id);
+    getMovieCredits(item.id);
+    getTVCredits(item.id);
+  }, [item]);
+
+  const getPersonDetail = async (id) => {
+    try {
+      const data = await fetchPersonDetail(id);
+      console.log(data);
+      if (data) {
+        setDetail(data); // Set directly without wrapping in an object
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getMovieCredits = async (id) => {
+    const data = await fetchRelatedMovies(id);
+    if (data && data.cast) setRelatedMovies(data.cast);
+    setLoading(false);
+  };
+  const getTVCredits = async (id) => {
+    const data = await fetchRelatedTV(id);
+    if (data && data.cast) setRelatedTV(data.cast);
+    setLoading(false);
+  };
 
   return (
     <ScrollView
@@ -68,8 +101,8 @@ const Person = () => {
         {loading? null :
         <View className="flex-row items-center justify-center">
           <Image
-            source={require("../assets/images/castImage1.png")}
-            // source={{ uri: image500(item.poster_path) }}
+            // source={require("../assets/images/castImage1.png")}
+            source={{ uri: image500(item.profile_path) }}
             style={{
               width: 200,
               height: 200,
@@ -88,7 +121,7 @@ const Person = () => {
 
         <View className={"space-y-1"}>
         <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          Keanu Reeves
+          {detail?.name}
         </Text>
         <Text className="text-neutral-500 text-center text-lg tracking-wider">
           London, United Kingdom
@@ -119,19 +152,19 @@ const Person = () => {
         {/* Description */}
 
         <Text className="text-neutral-400 mx-4 tracking-wide mb-10">
-          Super-Hero partners Scott Lang and Hope van Dyne, along with with
-          Hope's parents Janet van Dyne and Hank Pym, and Scott's daughter
-          Cassie Lang, find themselves exploring the Quantum Realm, interacting
-          with strange new creatures and embarking on an adventure that will
-          push them beyond the limits of what they thought possible.
+          {detail?.biography}
         </Text>
 
 
 
         <MovieList
-          title="Related Movies and Series"
-          data={related}
-          movieName="movieNamesdsdffdf"
+          title="Related Movies"
+          data={relatedMovies}
+          seeAll={false}
+        />
+        <MovieList
+          title="Related TV"
+          data={relatedTV}
           seeAll={false}
         />
       </View>}
