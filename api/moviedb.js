@@ -33,6 +33,8 @@ const RelatedMoviesEndPoint = (id) =>
   `${apiBaseUrl}/person/${id}/movie_credits?api_key=${apiKey}`;
 const RelatedTVEndPoint = (id) =>
   `${apiBaseUrl}/person/${id}/tv_credits?api_key=${apiKey}`;
+  
+const SearchMultiEndPoint = `${apiBaseUrl}/search/multi?api_key=${apiKey}`;
 
 
 
@@ -61,7 +63,7 @@ const apiCall = async (endpoint, params) => {
   const options = {
     method: "GET",
     url: endpoint,
-    params: params ? param : {},
+    params: params ? params : {},
   };
 
   try {
@@ -142,3 +144,8 @@ export const fetchRelatedMovies = (id) => {
 export const fetchRelatedTV = (id) => {
   return apiCall(RelatedTVEndPoint(id));
 };
+
+// search screen apis
+export const searchMovies = (params) =>{
+    return apiCall(SearchMultiEndPoint, params);
+}

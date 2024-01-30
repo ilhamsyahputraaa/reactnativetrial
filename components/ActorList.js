@@ -60,12 +60,12 @@ export default function ActorList({ data, title, seeAll }) {
                 }}
                 className="rounded-full object-cover"
               />
-              <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
+              <Text className="text-neutral-300 ml-1 text-center   w-fit">
                 {item?.name?.length > 10
                   ? item?.name?.slice(0, 10) + "..."
                   : item?.name}
               </Text>
-                <Text className="text-neutral-500 ml-1 text-center  line-clamp-1 w-fit">
+                <Text className="text-neutral-500 ml-1 text-center   w-fit">
                   {item?.character?.length > 10
                     ? item?.character?.slice(0, 10) + "..."
                     : item?.character}

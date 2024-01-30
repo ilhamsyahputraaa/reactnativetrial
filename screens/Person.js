@@ -76,7 +76,6 @@ const Person = () => {
       contentContainerStyle={{ paddingBottom: 20 }}
       className="flex-1 bg-neutral-900"
     >
-
       {/* Backbutton and movie poster */}
       <View className="w-full">
         <SafeAreaView
@@ -98,76 +97,67 @@ const Person = () => {
             />
           </TouchableOpacity>
         </SafeAreaView>
-        {loading? null :
-        <View className="flex-row items-center justify-center">
-          <Image
-            // source={require("../assets/images/castImage1.png")}
-            source={{ uri: image500(item.profile_path) }}
-            style={{
-              width: 200,
-              height: 200,
-              marginTop:height*0.15
-            }}
-            className="rounded-full shadow mt"
-          />
-
-        </View>}
+        {loading ? null : (
+          <View className="flex-row items-center justify-center">
+            <Image
+              // source={require("../assets/images/castImage1.png")}
+              source={{ uri: image500(item.profile_path) }}
+              style={{
+                width: 200,
+                height: 200,
+                marginTop: height * 0.15,
+              }}
+              className="rounded-full shadow mt"
+            />
+          </View>
+        )}
       </View>
 
       {/* Person Details */}
-      {loading? <Loading /> :
-      <View className="space-y-3" style={{ marginTop: (height * 0.03) }}>
-        {/* Title */}
+      {loading ? (
+        <Loading />
+      ) : (
+        <View className="space-y-3" style={{ marginTop: height * 0.03 }}>
+          {/* Title */}
 
-        <View className={"space-y-1"}>
-        <Text className="text-white text-center text-3xl font-bold tracking-wider">
-          {detail?.name}
-        </Text>
-        <Text className="text-neutral-500 text-center text-lg tracking-wider">
-          London, United Kingdom
-        </Text>
+          <View className={"space-y-1"}>
+            <Text className="text-white text-center text-3xl font-bold tracking-wider">
+              {detail?.name}
+            </Text>
+            <Text className="text-neutral-500 text-center text-lg tracking-wider">
+              {detail?.place_of_birth}
+            </Text>
+          </View>
 
+          {/* Genres */}
+          <View className="flex-row gap-2 w-full items-center justify-center">
+            <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
+              <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
+                {detail?.known_for_department}
+              </Text>
+            </View>
+          </View>
+
+          {/* Description */}
+
+          <Text className="text-neutral-400 mx-4 tracking-wide mb-10">
+            {detail?.biography}
+          </Text>
+
+          <MovieList
+            title="Related Movies"
+            data={relatedMovies}
+            seeAll={false}
+            isMovie={true}
+          />
+          <MovieList
+            title="Related TV"
+            data={relatedTV}
+            seeAll={false}
+            isMovie={false}
+          />
         </View>
-
-
-        {/* Genres */}
-        <View className="flex-row gap-2 w-full items-center justify-center">
-          <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
-            <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Actor
-            </Text>
-          </View>
-          <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
-            <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Director
-            </Text>
-          </View>
-          <View className="text-white p-1 bg-neutral-800 rounded-full px-2">
-            <Text className="text-white p-1 bg-neutral-800 rounded-full px-2">
-              Producer
-            </Text>
-          </View>
-        </View>
-
-        {/* Description */}
-
-        <Text className="text-neutral-400 mx-4 tracking-wide mb-10">
-          {detail?.biography}
-        </Text>
-
-
-
-        <MovieList
-          title="Related Movies"
-          data={relatedMovies}
-          seeAll={false}
-        />
-        <MovieList
-          title="Related TV"
-          data={relatedTV}
-          seeAll={false}
-        />
-      </View>}
+      )}
     </ScrollView>
   );
 };

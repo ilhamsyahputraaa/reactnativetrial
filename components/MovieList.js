@@ -74,13 +74,13 @@ export default function MovieList({ data, title, seeAll, isMovie }) {
                 className="rounded-xl"
               />
               {item?.title ? (
-                <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
+                <Text className="text-neutral-300 ml-1 text-center   w-fit">
                   {item?.title?.length > 14
                     ? item?.title?.slice(0, 14) + "..."
                     : item?.title}
                 </Text>
               ) : (
-                <Text className="text-neutral-300 ml-1 text-center  line-clamp-1 w-fit">
+                <Text className="text-neutral-300 ml-1 text-center   w-fit">
                   {item?.name?.length > 14
                     ? item?.name?.slice(0, 14) + "..."
                     : item?.name}

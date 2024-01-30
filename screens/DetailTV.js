@@ -131,22 +131,27 @@ const DetailTV = () => {
       {loading ? null : (
         <View className="space-y-3" style={{ marginTop: -(height * 0.08) }}>
           {/* Title */}
+          <View className="flex items-center justify-center">
 
           <Text className="text-white text-center text-3xl font-bold tracking-wider">
             {detail?.name}
           </Text>
+          <Text className="text-gray-400 text-center text-2xl font-bold tracking-wider">
+            {"("}{detail?.first_air_date.slice(0,4)}{")"}
+          </Text>
+          </View>
 
           {/* Status,Release, runtime */}
           <View className="flex-row gap-4 w-full items-center justify-center">
             <View className="text-white  rounded-full ">
               <Text className="text-white  rounded-full ">
-                {detail?.release_date}
+                {detail?.number_of_seasons} Seasons
               </Text>
             </View>
 
             <View className="text-white  rounded-full ">
               <Text className="text-white  rounded-full ">
-                {detail?.runtime} Minutes
+                {detail?.number_of_episodes} Episodes
               </Text>
             </View>
             <View

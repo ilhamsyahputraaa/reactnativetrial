@@ -132,7 +132,7 @@ const DetailMovie = () => {
         {/* Status,Release, runtime */}
         <View className="flex-row gap-4 w-full items-center justify-center">
           <View className="text-white  rounded-full ">
-            <Text className="text-white  rounded-full ">{detail?.release_date}</Text>
+            <Text className="text-white  rounded-full ">{detail?.release_date?.slice(0,4)}</Text>
           </View>
 
           <View className="text-white  rounded-full ">
@@ -191,6 +191,7 @@ const DetailMovie = () => {
           title="Similar Movies"
           data={related}
           seeAll={false}
+          isMovie={true}
         />
       </View>
      }
