@@ -1,4 +1,4 @@
-import { View, Text, Platform, TouchableOpacity } from "react-native";
+import { View, Text, Platform, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -87,10 +87,21 @@ export default function HomeScreen() {
       <StatusBar style="light" />
       <SafeAreaView className={`bg-whites ${ios ? "-mb-2" : "mb-3"}`}>
         <View className="flex-row justify-between items-center mx-4 ">
-          <Bars3Icon size="30" strokeWidth={2} color="white" />
-          <Text className="text-white text-3xl font-bold">
-            <Text className="text-yellow-500">M</Text>ovies
-          </Text>
+          <Bars3Icon
+            size="30"
+            strokeWidth={2}
+            color="gray"
+            className={"fill-white/10"}
+          />
+          <Image
+            source={require("../assets/images/Onflix Logo.png")}
+            // source={{ uri: image342(item.poster_path) }}
+            style={{
+              width: 100,
+              height: 20,
+            }}
+            className="rounded-xl"
+          />
           <TouchableOpacity onPress={() => handleClick()}>
             <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
           </TouchableOpacity>
@@ -110,11 +121,7 @@ export default function HomeScreen() {
 
           {/* Upcoming Movies */}
 
-          <MovieList
-            title="Upcoming Movies"
-            data={upcoming}
-            isMovie={true}
-          />
+          <MovieList title="Upcoming Movies" data={upcoming} isMovie={true} />
 
           {/* TV Show */}
           <MovieList
